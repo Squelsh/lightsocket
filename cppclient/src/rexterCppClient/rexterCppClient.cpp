@@ -69,7 +69,7 @@ int rexterCppClient::send_request(const Json::Value &path, const Json::Value &pa
   std::string msg_to_send;
   msg_to_send = js_writer.write(js_msg);
 
-  //std::cout << "Trying to send " << msg_to_send << std::endl;
+  std::cout << "Trying to send " << msg_to_send << std::endl;
 
   if(zmq_send(zsock, msg_to_send.c_str(), msg_to_send.length(), 0) != 0)
   {
@@ -91,10 +91,9 @@ int rexterCppClient::send_request(const Json::Value &path, const Json::Value &pa
   zmq_msg_close (&message);
 
   // JSon parsing:
-  Json::Value js_rcv;
-  if(js_reader.parse(str_message, js_rcv, false))
+  if(js_reader.parse(str_message, answer, false))
   {
-    std::cout << "Received: " << js_rcv << std::endl; // prints !!!Hello World!!!
+    std::cout << "Received: " << answer << std::endl;
     return 0;
   }else{
     std::cout << "Error parsing the answer from server" << std::endl;
