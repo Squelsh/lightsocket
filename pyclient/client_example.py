@@ -57,8 +57,8 @@ class ClientExample(object):
 
     def run_test(self,requests=30000):
         path = "example/test"
-        self.start_timer()
-        for x in range(0,requests):
+        self.start_timer()        
+	for x in range(0,requests):
             self.send_request(path,params={},data={})
             self.display_progress()
         self.stop_timer()
@@ -73,7 +73,19 @@ class ClientExample(object):
         node_id = resp['results']['_id']
         return node_id
 
+    def create_edge(self, from_n, to_n):
+        path = "wordgraph/edges/create"
+        data = dict(name="myEdge",direction="west")
+        params = dict(outV=from_n,inV=to_n,label="connected")
+        resp = self.send_request(path,params,data)
+        print resp
+        edge_id = resp['results']['_id']
+        return edge_id
+
 
 client = ClientExample()
-client.run_test()
-#client.create_node()
+#client.run_test()
+
+n1 = client.create_node()
+n2 = client.create_node()
+e1 = client.create_edge(n1, n2)
