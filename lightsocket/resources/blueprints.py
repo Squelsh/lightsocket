@@ -6,8 +6,6 @@
 
 from java.lang import Long
 
-from com.tinkerpop.rexster import AbstractSubResource
-from com.tinkerpop.rexster import RexsterApplicationProvider
 from com.tinkerpop.rexster.util import ElementHelper
 from com.tinkerpop.blueprints.pgm.impls.neo4j import Neo4jGraph
 from com.tinkerpop.blueprints.pgm.impls.neo4jbatch import Neo4jBatchGraph
@@ -15,7 +13,6 @@ from com.tinkerpop.blueprints.pgm.impls.neo4jbatch import Neo4jBatchGraph
 
 
 from lightsocket.server import Resource, Response, Router
-
 
 class VertexProxy(Resource):
 
@@ -31,8 +28,13 @@ class VertexProxy(Resource):
     def create(self,request):
         vertex = self.graph.addVertex(None)
         for key, value in request.data.items():
-            value = ElementHelper.getTypedPropertyValue(str(value))
-            vertex.setProperty(key,value)
+            if key == "element_type":
+                element_type = value
+            try:
+                vertex.setProperty(key,value)
+            except:
+                print "WOULDN'T SET: ", element_type, key, value
+                
         data = dict(_id=vertex.id,_type=self._type)
         return Response(201,data)
         
@@ -144,6 +146,7 @@ class Blueprints(Resource):
         return Response(200)
 
     def shutdown(self,request):
+        print "Shutting down graph..."
         self.graph.shutdown()
         return Response(200)
     #

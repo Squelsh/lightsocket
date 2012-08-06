@@ -13,14 +13,11 @@ export CLASSPATH=$CLASSPATH:/home/hermann-local/src/blueprints/blueprints-dex-gr
 export CLASSPATH=$CLASSPATH:/home/hermann-local/src/blueprints/blueprints-neo4jbatch-graph/target/blueprints-neo4jbatch-graph-1.1-SNAPSHOT.jar
 
 # Modify this to point to your Rexster root dir and lib dir
-REXSTER_DIR=/home/hermann-local/rexster
-REXSTER_LIB="${REXSTER_DIR}/target/rexster-0.7-SNAPSHOT-standalone/lib/*"
+REXSTER_DIR=/home/james/packages/tinkerpop/rexster
+REXSTER_LIB="${REXSTER_DIR}/rexster-server/target/rexster-server-0.9-SNAPSHOT-standalone/lib/*"
 
 # Modify this to point to your Jython dir
-JYTHON_DIR=/home/hermann-local/src/jython2.5.2
-
-# Modify this to point to your lib dir with the jzmq libs
-JZMQ_LIB_DIR=/usr/local/lib
+JYTHON_DIR=/home/james/packages/jython2.5.2
 
 # Modify this to point to your lib dir with the jzmq libs
 # (Dir not needed, when JZMQ libs are installed in regular sytem lib path)
